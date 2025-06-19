@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Eventos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <h2>Sistema de Eventos</h2>
+        <ul>
+            <li><a href="#" id="nav-events" class="active">Gestión de Eventos</a></li>
+            <li><a href="#" id="nav-locations">Gestión de Ubicaciones</a></li>
+            <li><a href="#" id="nav-contacts">Gestión de Contactos</a></li>
+            <li><a href="#" id="nav-consultation">Consultar Eventos</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="event-management" class="active-section">
+            <h1>Gestión de Eventos</h1>
+            <div id="event-message" class="message"></div>
+            <form id="event-form">
+                <div class="form-group">
+                    <label for="event-title">Título del Evento:</label>
+                    <input type="text" id="event-title" name="title" placeholder="Ej: Conferencia de IA" required>
+                </div>
+                <div class="form-group">
+                    <label for="event-guests">Invitados:</label>
+                    <input type="text" id="event-guests" name="guests" placeholder="Ej: Dr. Juan Pérez, Dra. Ana Gómez">
+                </div>
+                <div class="form-group">
+                    <label for="event-datetime">Fecha y Hora:</label>
+                    <input type="datetime-local" id="event-datetime" name="datetime" required>
+                </div>
+                <div class="form-group">
+                    <label for="event-timezone">Zona Horaria:</label>
+                    <select id="event-timezone" name="timezone" required>
+                        <option value="">Selecciona una zona horaria</option>
+                        <option value="UTC-5">UTC-5 (Quito)</option>
+                        <option value="UTC-4">UTC-4</option>
+                        <option value="UTC-3">UTC-3</option>
+                        <option value="UTC-6">UTC-6</option>
+                        </select>
+                </div>
+                <div class="form-group">
+                    <label for="event-description">Descripción:</label>
+                    <textarea id="event-description" name="description" placeholder="Breve descripción del evento..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="event-repeat">Repetición:</label>
+                    <select id="event-repeat" name="repeat">
+                        <option value="none">No se repite</option>
+                        <option value="daily">Diariamente</option>
+                        <option value="weekly">Semanalmente</option>
+                        <option value="monthly">Mensualmente</option>
+                        <option value="yearly">Anualmente</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="event-reminder">Recordatorio:</label>
+                    <select id="event-reminder" name="reminder">
+                        <option value="none">No recordatorio</option>
+                        <option value="15min">15 minutos antes</option>
+                        <option value="30min">30 minutos antes</option>
+                        <option value="1hour">1 hora antes</option>
+                        <option value="1day">1 día antes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="event-classification">Clasificación:</label>
+                    <input type="text" id="event-classification" name="classification" placeholder="Ej: Académico, Cultural, Deportivo">
+                </div>
+                <div class="form-group">
+                    <label for="event-location">Lugar:</label>
+                    <select id="event-location" name="locationId" required>
+                        <option value="">Selecciona un lugar</option>
+                        </select>
+                    <small>Primero registra ubicaciones en la sección "Gestión de Ubicaciones".</small>
+                </div>
+                <div class="form-actions">
+                    <button type="reset" class="btn btn-secondary">Limpiar</button>
+                    <button type="submit" class="btn">Guardar Evento</button>
+                </div>
+            </form>
+
+            <h2>Eventos Registrados</h2>
+            <div class="list-container">
+                <ul id="event-list">
+                    <p class="no-items" id="no-events-message">No hay eventos registrados aún.</p>
+                </ul>
+            </div>
+        </section>
+
+        <section id="location-management">
+            <h1>Gestión de Ubicaciones</h1>
+            <div id="location-message" class="message"></div>
+            <form id="location-form">
+                <div class="form-group">
+                    <label for="location-title">Título de la Ubicación:</label>
+                    <input type="text" id="location-title" name="title" placeholder="Ej: Auditorio Principal" required>
+                </div>
+                <div class="form-group">
+                    <label for="location-address">Dirección:</label>
+                    <input type="text" id="location-address" name="address" placeholder="Ej: Av. 10 de Agosto y Colón" required>
+                </div>
+                <div class="form-group">
+                    <label for="location-coordinates">Coordenadas Geográficas (Latitud, Longitud):</label>
+                    <input type="text" id="location-coordinates" name="coordinates" placeholder="Ej: -0.180653, -78.467829">
+                    <small>Formato: latitud, longitud (separadas por coma)</small>
+                </div>
+                <div class="form-actions">
+                    <button type="reset" class="btn btn-secondary">Limpiar</button>
+                    <button type="submit" class="btn">Guardar Ubicación</button>
+                </div>
+            </form>
+
+            <h2>Ubicaciones Registradas</h2>
+            <div class="list-container">
+                <ul id="location-list">
+                    <p class="no-items" id="no-locations-message">No hay ubicaciones registradas aún.</p>
+                </ul>
+            </div>
+        </section>
+
+        <section id="contact-management">
+            <h1>Gestión de Contactos</h1>
+            <div id="contact-message" class="message"></div>
+            <form id="contact-form">
+                <div class="form-group">
+                    <label for="contact-fullname">Nombre Completo:</label>
+                    <input type="text" id="contact-fullname" name="fullname" placeholder="Ej: Juan Pérez García" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-id">Número de Identificación:</label>
+                    <input type="text" id="contact-id" name="idNumber" placeholder="Ej: 1712345678">
+                </div>
+                <div class="form-group">
+                    <label for="contact-email">Correo Electrónico:</label>
+                    <input type="email" id="contact-email" name="email" placeholder="Ej: juan.perez@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-phone">Número de Teléfono:</label>
+                    <input type="tel" id="contact-phone" name="phone" placeholder="Ej: +593987654321">
+                </div>
+                <div class="form-group">
+                    <label for="contact-photo">Fotografía (URL o Base64):</label>
+                    <input type="text" id="contact-photo" name="photo" placeholder="Ej: https://example.com/foto.jpg">
+                    <small>Introduce una URL de imagen o un string Base64</small>
+                </div>
+                <div class="form-actions">
+                    <button type="reset" class="btn btn-secondary">Limpiar</button>
+                    <button type="submit" class="btn">Guardar Contacto</button>
+                </div>
+            </form>
+
+            <h2>Contactos Registrados</h2>
+            <div class="list-container">
+                <ul id="contact-list">
+                    <p class="no-items" id="no-contacts-message">No hay contactos registrados aún.</p>
+                </ul>
+            </div>
+        </section>
+
+        <section id="event-consultation">
+            <h1>Consulta de Eventos</h1>
+            <p>Esta sección mostrará todos los eventos registrados con los detalles de sus ubicaciones.</p>
+            <div class="list-container">
+                <ul id="full-event-list">
+                    <p class="no-items" id="no-full-events-message">No hay eventos para consultar aún.</p>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
