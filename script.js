@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const fullEventList = document.getElementById('full-event-list');
     const noFullEventsMessage = document.getElementById('no-full-events-message');
 
-
     // --- Funciones de Utilidad ---
 
     // Función para mostrar mensajes de feedback
@@ -52,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return items.find(item => item.id === id);
     };
 
-
     // --- Funcionalidad de Navegación ---
 
     const showSection = (id) => {
@@ -71,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (id === 'contact-management') {
             renderContactList();
         }
+        // No es necesario cargar listas para 'help-section'
     };
 
     navLinks.forEach(link => {
@@ -83,7 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 'nav-events': 'event-management',
                 'nav-locations': 'location-management',
                 'nav-contacts': 'contact-management',
-                'nav-consultation': 'event-consultation'
+                'nav-consultation': 'event-consultation',
+                'nav-help': 'help-section' // Mapeo para la nueva sección de ayuda
             };
             const targetSectionId = sectionIdMap[e.target.id];
             if (targetSectionId) {
@@ -118,17 +118,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const locations = getData('locations'); // Obtener todas las ubicaciones para buscar detalles
         targetListElement.innerHTML = ''; // Limpiar la lista existente
 
-        const noItemsMsgElement = targetListElement.querySelector('.no-items') || targetListElement.nextElementSibling;
+        const noItemsMsgElement = targetListElement.querySelector('.no-items') || (targetListElement.id === 'event-list' ? noEventsMessage : noFullEventsMessage);
 
         if (events.length === 0) {
-            if (noItemsMsgElement && noItemsMsgElement.classList.contains('no-items')) {
+            if (noItemsMsgElement) {
                 noItemsMsgElement.style.display = 'block';
-            } else {
-                 targetListElement.innerHTML = '<p class="no-items">No hay eventos registrados aún.</p>';
+                targetListElement.appendChild(noItemsMsgElement); // Asegurar que el mensaje esté dentro del ul si no lo estaba
             }
             return;
         } else {
-             if (noItemsMsgElement && noItemsMsgElement.classList.contains('no-items')) {
+            if (noItemsMsgElement) {
                 noItemsMsgElement.style.display = 'none';
             }
         }
@@ -200,6 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
         locationList.innerHTML = '';
         if (locations.length === 0) {
             noLocationsMessage.style.display = 'block';
+            locationList.appendChild(noLocationsMessage); // Asegurar que el mensaje esté dentro del ul
             return;
         }
         noLocationsMessage.style.display = 'none';
@@ -245,6 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
         contactList.innerHTML = '';
         if (contacts.length === 0) {
             noContactsMessage.style.display = 'block';
+            contactList.appendChild(noContactsMessage); // Asegurar que el mensaje esté dentro del ul
             return;
         }
         noContactsMessage.style.display = 'none';
@@ -319,7 +320,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-
 
     // --- Inicialización: Cargar datos al cargar la página y mostrar la sección de eventos ---
     populateLocationSelect(); // Asegurarse de que el selector de eventos esté lleno al inicio

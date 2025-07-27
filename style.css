@@ -166,15 +166,20 @@ h2 {
 }
 
 /* Estilos específicos para las secciones */
-#event-management, #location-management, #contact-management, #event-consultation {
+#event-management,
+#location-management,
+#contact-management,
+#event-consultation,
+#help-section { /* Añadida la nueva sección aquí */
     display: none; /* Ocultar todas las secciones por defecto */
 }
 
 #event-management.active-section,
 #location-management.active-section,
 #contact-management.active-section,
-#event-consultation.active-section {
-    display: block; /* Mostrar la sección activa */
+#event-consultation.active-section,
+#help-section.active-section { /* Mostrar la sección activa */
+    display: block;
 }
 
 /* Mensajes de feedback */
@@ -252,4 +257,27 @@ h2 {
     object-fit: cover;
     margin-right: 15px;
     border: 1px solid #ddd;
+}
+
+/* Nuevos estilos para la sección de ayuda/tutoriales */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.video-container iframe,
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
 }
